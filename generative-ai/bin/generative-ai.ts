@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { ApiGwtStack } from '../lib/apigwt-stack';
 import { FrontEndStack } from '../lib/frontend-stack';
+import { DashboardsStack } from '../lib/dashboards-stack';
 import { GenerativeAiStack } from '../lib/generative-ai-stack';
 
 const app = new cdk.App({
@@ -23,6 +24,10 @@ const api = new ApiGwtStack(app, 'ApiGwtStack', {
 const frontend = new FrontEndStack(app, 'FrontEndStack', {
     description: 'Stack for a Cluster on EKS to run an Python webapplication that serves a website'
 });
+
+new DashboardsStack(app, 'DashboardsStack', {
+    description: 'Stack for Dashboards to monitor the PetRecommender resources'
+})
 
 api.addDependency(genAiStack);
 frontend.addDependency(api);
